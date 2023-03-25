@@ -14,7 +14,7 @@ category = 'TakenByAttorneyUno'
 valueName = 'Unanswered Questions'
 
 subCategory = 'Category'
-subValueName = None
+subValueName = 'Family and Children'
 
 if valueName == 'Unanswered Questions':
     data = data.loc[data[category].isnull()]
@@ -42,6 +42,7 @@ data = data[['StateAbbr',newCol]].groupby('StateAbbr').count().reset_index()
 
 # sort by most tornadoes first
 data.sort_values(newCol, ascending=False).head(10)
+data.to_csv('data.csv')
 
 fig = px.choropleth(data,
                     locations='StateAbbr', 
