@@ -36,16 +36,10 @@ data_ratio['ratio'] = data_ratio_list
 
 # sort by most tornadoes first
 data_ratio = data_ratio.sort_values('ratio', ascending=False)
-data_ratio = data_ratio.reset_index()
 data_ratio.rename(columns = {'ratio':'Total Questions/Population per Million'}, inplace = True)
+# sort by most tornadoes first
+data_ratio = data_ratio.sort_values('Total Questions/Population per Million', ascending=False)
 
-fig = px.choropleth(data_ratio,
-                    locations='StateAbbr', 
-                    locationmode="USA-states", 
-                    scope="usa",
-                    color='Total Questions/Population per Million',
-                    color_continuous_scale="Viridis_r",    
-                    )
-fig.write_html('first_figure.html', auto_open=True)
+data_ratio.plot.bar(figsize=(12,6), title='Total Questions/State Population')
 
-
+plt.show()

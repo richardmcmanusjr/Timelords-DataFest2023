@@ -19,8 +19,8 @@ data = pd.read_csv('/Users/richardmcmanjus/Documents/College/Datafest/Data/clien
 
 data = data.loc[data['EthnicIdentity'] == 'African American']
 
-data['Latitude'] = (nomi.query_postal_code(data['PostalCode']).latitude)
-data['Longitude'] = (nomi.query_postal_code(data['PostalCode']).longitude)
+data['Latitude'] = (nomi.query_postal_code(data['PostalCode'].tolist()).latitude)
+data['Longitude'] = (nomi.query_postal_code(data['PostalCode'].tolist()).longitude)
 data.to_csv('data.csv')
 
 fig = px.scatter_mapbox(data, lat="Latitude", lon="Longitude", hover_name="ClientUno", hover_data=["EthnicIdentity", "Age"],

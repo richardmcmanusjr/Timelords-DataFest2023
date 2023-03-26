@@ -9,6 +9,7 @@ pandas_bokeh.output_notebook()
 import plotly.express as px
 
 data = pd.read_csv('/Users/richardmcmanjus/Documents/College/Datafest/Data/questions.csv', sep=',')
+data = data.loc[data['StateAbbr'] != 'ID']
 
 data_unanswered = data.loc[data['TakenByAttorneyUno'].isnull()]
 

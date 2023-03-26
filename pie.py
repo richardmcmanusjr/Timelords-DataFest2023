@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import pandas as pd
 import pandas_bokeh
 import matplotlib.pyplot as plt
@@ -7,9 +9,9 @@ from shapely.geometry import Point
 from geopandas import GeoDataFrame
 pandas_bokeh.output_notebook()
 import plotly.express as px
+import pprint
 
 data = pd.read_csv('/Users/richardmcmanjus/Documents/College/Datafest/Data/questions.csv', sep=',')
-data = data.loc[data['StateAbbr'] != 'ID']
 
 category = 'TakenByAttorneyUno'
 valueName = None #'Unanswered Questions'
@@ -39,22 +41,14 @@ else:
 data[newCol] = 1
 
 # use groupby() and count() to total up all the tornadoes by state
-data = data[['StateAbbr',newCol]].groupby('StateAbbr').count().reset_index()
+data = data[['StateAbbr',newCol]].groupby('StateAbbr').count()
 
-# sort by most tornadoes first
-data.sort_values(newCol, ascending=False).head(10)
+# sort by most first
+data = data.sort_values(newCol, ascending=False)
 data.to_csv('data.csv')
 
-fig = px.choropleth(data,
-                    locations='StateAbbr', 
-                    locationmode="USA-states", 
-                    scope="usa",
-                    color=newCol,
-                    color_continuous_scale="Viridis_r", 
-                    
-                    )
-fig.write_html('first_figure.html', auto_open=True)
+pprint.pprint(data)
 
+# data.plot.bar(figsize=(12,6), title='Total Questions by State')
 
-
-
+# plt.show()
